@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Jump : MonoBehaviour {
+public class JumpComponent : MonoBehaviour {
     public float impulse = 200.0f;
     private Rigidbody2D body2D;
     bool jumping = false;
