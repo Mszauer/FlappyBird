@@ -2,22 +2,26 @@
 using System.Collections;
 
 public class JumpComponent : MonoBehaviour {
-    public float impulse = 200.0f;
+    public float jumpForce = 200.0f;
     private Rigidbody2D body2D;
-    bool jumping = false;
+    public float gravity = -100.0f;
+
+    float currentForce;
 
     void Awake() {
         body2D = GetComponent<Rigidbody2D>();
+        currentForce = gravity;
     }
 
     void Update() {
-        if (Input.anyKeyDown) {
-            if (!jumping) {
-                jumping = true;
-                body2D.AddForce(new Vector2(0, impulse), ForceMode2D.Impulse);
-            }
-        }
+        body2D.velocity = new Vector2(0, currentForce);
 
-        jumping = false;
+        if (Input.anyKeyDown) {
+            currentForce = jumpForce;
+        }
+        currentForce += gravity * Time.deltaTime * 2.0f;
+        if (currentForce < gravity) {
+            currentForce = gravity;name 
+        }
     }
 }

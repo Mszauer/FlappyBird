@@ -6,6 +6,7 @@ using System.Collections.Generic;
 public class PipeComponent : MonoBehaviour {
     public GameObject topPipe;
     public List<float> pipePositions;
+    public bool scorable = true;
 
     protected float pipeHeight = 0.0f;
 
@@ -14,5 +15,8 @@ public class PipeComponent : MonoBehaviour {
     }
     public void changeHeight(float dY) {
         topPipe.transform.position = new Vector3(topPipe.transform.position.x, pipePositions[Random.Range(0,pipePositions.Count)]+pipeHeight);
+    }
+    void OnCollisionEnter(Collision collision) {
+
     }
 }

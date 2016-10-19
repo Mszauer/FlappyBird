@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 
 public class HorizontalScrollingComponent : MonoBehaviour {
+    public ScoreComponent scoreKeeper;
     public List<GameObject> objects;
     public float moveSpeed = 1.0f;
     public float deltaY;
@@ -21,15 +22,20 @@ public class HorizontalScrollingComponent : MonoBehaviour {
             //move x pos
             objects[i].transform.position = new Vector2(objects[i].transform.position.x - moveSpeed*Time.deltaTime, objects[i].transform.position.y);
 
+            PipeComponent pipes = objects[i].GetComponent<PipeComponent>();
+
+            if (pipes != null && pipes.scorable && objects[i].transform.position.x + xOffset[i] < (Screen.width/2-10)) {//offset  because player isn't centered
+                scoreKeeper.AddPoints(1);
+                pipes.scorable = false;
+            }
+
             if (objects[i].transform.position.x+xOffset[i] < 0) {
                 float xPos = Screen.width + xOffset[i];
-
-                PipeComponent pipes = objects[i].GetComponent<PipeComponent>();
                 if (pipes != null) {
                     pipes.changeHeight(deltaY);
-                }
-
-                objects[i].transform.position = new Vector2(xPos, objects[i].transform.position.y);
+                    pipes.scorable = true;
+            }
+            objects[i].transform.position = new Vector2(xPos, objects[i].transform.position.y);
             }
         }
     }
