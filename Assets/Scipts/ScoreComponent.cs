@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class ScoreComponent : MonoBehaviour {
+    public Text scoringText;
     protected int score;
 
     public void AddPoints(int amt) {
@@ -11,6 +12,6 @@ public class ScoreComponent : MonoBehaviour {
     }
 
     protected void updateText() {
-        gameObject.GetComponent<Text>().text = "Score: " + score.ToString();
+        scoringText.text = score.ToString();
     }
 }

@@ -16,7 +16,5 @@ public class PipeComponent : MonoBehaviour {
     public void changeHeight(float dY) {
         topPipe.transform.position = new Vector3(topPipe.transform.position.x, pipePositions[Random.Range(0,pipePositions.Count)]+pipeHeight);
     }
-    void OnCollisionEnter(Collision collision) {
-
-    }
+    
 }
