@@ -20,7 +20,7 @@ public class HorizontalScrollingComponent : MonoBehaviour {
     }
 	// Update is called once per frame
 	void Update () {
-        if (GamemanagerComponent.currentState == GamemanagerComponent.GameState.Playing) {
+        if (GamemanagerComponent.Instance.currentState == GamemanagerComponent.GameState.Playing) {
             for (int i = 0; i < objects.Count; i++) {
                 //move x pos
                 objects[i].transform.position = new Vector2(objects[i].transform.position.x - moveSpeed * Time.deltaTime, objects[i].transform.position.y);

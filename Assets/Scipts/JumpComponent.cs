@@ -5,7 +5,6 @@ public class JumpComponent : MonoBehaviour {
     public float jumpForce = 200.0f;
     private Rigidbody2D body2D;
     public float gravity = -100.0f;
-    public GameObject gameManager;
 
     float currentForce;
 
@@ -15,12 +14,12 @@ public class JumpComponent : MonoBehaviour {
     }
 
     void Update() {
-        if (GamemanagerComponent.currentState == GamemanagerComponent.GameState.Start) {
+        if (GamemanagerComponent.Instance.currentState == GamemanagerComponent.GameState.Start) {
             if (Input.anyKeyDown) {
-                gameManager.GetComponent<GamemanagerComponent>().SwitchState(GamemanagerComponent.GameState.Playing);
+                GamemanagerComponent.Instance.SwitchState(GamemanagerComponent.GameState.Playing);
             }
         }
-        if (GamemanagerComponent.currentState == GamemanagerComponent.GameState.Playing) {
+        if (GamemanagerComponent.Instance.currentState == GamemanagerComponent.GameState.Playing) {
             body2D.velocity = new Vector2(0, currentForce);
 
             if (Input.anyKeyDown) {
@@ -30,6 +29,19 @@ public class JumpComponent : MonoBehaviour {
             if (currentForce < gravity) {
                 currentForce = gravity;
             }
+            OutOfBounds();
+        }
+        if (GamemanagerComponent.Instance.currentState == GamemanagerComponent.GameState.Dead) {
+            if (Input.anyKeyDown) {
+                GamemanagerComponent.Instance.ReloadScene();
+            }
+        }
+    }
+
+    public void OutOfBounds() {
+        if (body2D.transform.position.y > Screen.height || body2D.transform.position.y < 0) {
+            //Debug.Log("Out of Bounds, Game Over");
+            GamemanagerComponent.Instance.SwitchState(GamemanagerComponent.GameState.Dead);
         }
     }
 }
