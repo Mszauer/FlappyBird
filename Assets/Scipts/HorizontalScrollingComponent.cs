@@ -21,6 +21,8 @@ public class HorizontalScrollingComponent : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         if (GamemanagerComponent.Instance.currentState == GamemanagerComponent.GameState.Playing) {
+
+
             for (int i = 0; i < objects.Count; i++) {
                 //move x pos
                 objects[i].transform.position = new Vector2(objects[i].transform.position.x - moveSpeed * Time.deltaTime, objects[i].transform.position.y);
@@ -35,7 +37,7 @@ public class HorizontalScrollingComponent : MonoBehaviour {
                 if (objects[i].transform.position.x + xOffset[i] < 0) {
                     float xPos = Screen.width + xOffset[i];
                     if (pipes != null) {
-                        pipes.changeHeight(deltaY);
+                        pipes.changeHeight(deltaY);//this is what breaks the pipes positioning. It needs to move up by pipe height
                         pipes.scorable = true;
                     }
                     objects[i].transform.position = new Vector2(xPos, objects[i].transform.position.y);
