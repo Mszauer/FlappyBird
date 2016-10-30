@@ -14,4 +14,8 @@ public class ScoreComponent : MonoBehaviour {
     protected void updateText() {
         scoringText.text = score.ToString();
     }
+    public void resetScore() {
+        score = 0;
+        updateText();
+    }
 }

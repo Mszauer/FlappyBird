@@ -22,16 +22,13 @@ public class GamemanagerComponent : MonoBehaviour {
     void Awake() {
         instance = this;
 
-        currentScore.text = PlayerPrefs.GetInt("BestScore").ToString();
 
         if (currentState == GameState.Start) {
             startText.enabled = true;
             deadText.enabled = false;
         }
     }
-    void Shutdown() {
-        PlayerPrefs.SetInt("BestScore", System.Convert.ToInt32(currentScore.text));
-    }
+
 
     public void SwitchState(GameState newState) {
         if (currentState == newState) {
@@ -56,6 +53,5 @@ public class GamemanagerComponent : MonoBehaviour {
 
     public void ReloadScene() {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        Shutdown();
     }
 }

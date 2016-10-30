@@ -7,7 +7,6 @@ public class HorizontalScrollingComponent : MonoBehaviour {
     public GameObject scoreManager;
     public List<GameObject> objects;
     public float moveSpeed = 1.0f;
-    public float deltaY;
 
     protected List<float> xOffset;
     protected ScoreComponent scoreKeeper;
@@ -17,6 +16,7 @@ public class HorizontalScrollingComponent : MonoBehaviour {
             xOffset.Add(obj.GetComponent<Image>().rectTransform.rect.width / 2);
         }
         scoreKeeper = scoreManager.GetComponent<ScoreComponent>();
+        scoreKeeper.resetScore();
     }
 	// Update is called once per frame
 	void Update () {
@@ -37,7 +37,7 @@ public class HorizontalScrollingComponent : MonoBehaviour {
                 if (objects[i].transform.position.x + xOffset[i] < 0) {
                     float xPos = Screen.width + xOffset[i];
                     if (pipes != null) {
-                        pipes.changeHeight(deltaY);//this is what breaks the pipes positioning. It needs to move up by pipe height
+                        pipes.changeHeight();
                         pipes.scorable = true;
                     }
                     objects[i].transform.position = new Vector2(xPos, objects[i].transform.position.y);
